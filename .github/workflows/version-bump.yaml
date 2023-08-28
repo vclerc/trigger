@@ -24,4 +24,4 @@ jobs:
           token: ${{ secrets.DISPATCH_PAT }}
           repository: vclerc/console-printer-lerna
           event-type: version-bump
-          client-payload: '{"targetVariable":"${{inputs.targetVariable}}", "newValue": "${{inputs.newValue}}"'
+          client-payload: '{"targetVariable":"${{inputs.targetVariable}}", "newValue": "${{inputs.newValue}}"}'
