@@ -1,0 +1,27 @@
+on:
+  workflow_dispatch:
+    inputs:
+      targetVariable:
+        description: Env variable to be update
+        required: true
+        type: choice
+        options:
+          - TEST_1
+          - TEST_2
+      newValue:
+        description: Value to be assigned to the targeted env variable
+        required: true
+        type: string
+
+name: version-bump
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.DISPATCH_PAT }}
+          repository: vclerc/console-printer-lerna
+          event-type: version-bump
+          client-payload: '{"targetVariable":"${{inputs.targetVariable}}", "newValue": "${{inputs.newValue}}"'
