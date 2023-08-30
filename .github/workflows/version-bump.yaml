@@ -17,7 +17,7 @@ name: version-bump
 
 jobs:
   dispatch:
-    uses: ${{ github.repository_owner }}/console-printer-lerna/.github/workflows/pr-creation@main
+    uses: ${{ github.repository_owner}}/console-printer-lerna/.github/workflows/pr-creation.yaml@main
     with:
       targetVariable: ${{ inputs.targetVariable }}
       newValue: ${{ inputs.NewValue }}
