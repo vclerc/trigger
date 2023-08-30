@@ -19,9 +19,7 @@ jobs:
   dispatch:
     runs-on: ubuntu-latest
     steps:
-      - uses: peter-evans/repository-dispatch@v2
+      - uses: ${{ github.repository_owner }}/console-printer-lerna/.github/workflows/pr-creation@main
         with:
-          token: ${{ secrets.DISPATCH_PAT }}
-          repository: vclerc/console-printer-lerna
-          event-type: version-bump
-          client-payload: '{"targetVariable":"${{inputs.targetVariable}}", "newValue": "${{inputs.newValue}}"}'
+          targetVariable: ${{ inputs.targetVariable }}
+          newValue: ${{ inputs.NewValue }}
