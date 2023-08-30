@@ -17,9 +17,7 @@ name: version-bump
 
 jobs:
   dispatch:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: ${{ github.repository_owner }}/console-printer-lerna/.github/workflows/pr-creation@main
-        with:
-          targetVariable: ${{ inputs.targetVariable }}
-          newValue: ${{ inputs.NewValue }}
+    uses: ${{ github.repository_owner }}/console-printer-lerna/.github/workflows/pr-creation@main
+    with:
+      targetVariable: ${{ inputs.targetVariable }}
+      newValue: ${{ inputs.NewValue }}
