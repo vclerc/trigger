@@ -17,7 +17,18 @@ name: version-bump
 
 jobs:
   dispatch:
-    uses: vclerc/console-printer-lerna/.github/workflows/pr-creation.yaml@main
-    with:
-      targetVariable: ${{ inputs.targetVariable }}
-      newValue: ${{ inputs.NewValue }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.actions.createWorkflowDispatch({
+              owner: ${{ github.repository_owner }},
+              repo: console-printer-lerna,
+              workflow_id: 'pr-creation.yaml',
+              ref: 'main'
+              inputs: {
+                targetVariable: '${{ inputs.targetVariable }}',
+                newValue: '${{ inputs.newValue }}'
+              }
+            });
