@@ -23,8 +23,8 @@ jobs:
         with:
           script: |
             github.rest.actions.createWorkflowDispatch({
-              owner: ${{ github.repository_owner }},
-              repo: console-printer-lerna,
+              owner: '${{ github.repository_owner }}',
+              repo: 'console-printer-lerna',
               workflow_id: 'pr-creation.yaml',
               ref: 'main',
               inputs: {
