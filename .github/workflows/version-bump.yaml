@@ -21,6 +21,7 @@ jobs:
     steps:
       - uses: actions/github-script@v6
         with:
+          github-token: ${{ secrets.DISPATCH_PAT }}
           script: |
             github.rest.actions.createWorkflowDispatch({
               owner: '${{ github.repository_owner }}',
