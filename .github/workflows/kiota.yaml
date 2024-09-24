@@ -11,3 +11,19 @@ jobs:
       - uses: microsoft/setup-kiota@v0.5.0
       - name: Generate client
         run: kiota generate --openapi https://api-next.dev.product-live.com/-json --language typescript --output ./src/sdkapidev
+      - name: commit
+        uses: EndBug/add-and-commit@v9
+        with:
+
+          # Arguments for the git fetch command. If set to false, the action won't fetch the repo.
+          # For more info as to why fetching is usually recommended, please see the "Performance on large repos" FAQ.
+          # Default: --tags --force
+          fetch: false
+
+          # The message for the commit.
+          # Default: 'Commit from GitHub Actions (name of the workflow)'
+          message: 'Your commit message'
+
+          # Whether to push the commit and, if any, its tags to the repo. It can also be used to set the git push arguments (see the paragraph below for more info)
+          # Default: true
+          push: true
