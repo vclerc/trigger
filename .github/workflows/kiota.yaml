@@ -1,0 +1,13 @@
+on:
+  workflow_dispatch:
+
+name: kiota
+
+jobs:
+  generate-sdk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: microsoft/setup-kiota@v0.5.0
+      - name: Generate client
+        run: kiota generate --openapi https://api-next.dev.product-live.com/-json --language typescript --output ./src/sdkapidev
