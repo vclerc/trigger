@@ -1,7 +1,7 @@
 on:
   workflow_dispatch:
 
-name: kiota
+name: openapi-generator
 
 jobs:
   generate-sdk:

@@ -5,7 +5,7 @@
     "main": "./cli/index.js",
     "type": "module",
     "scripts": {
-        "openapi": "openapi-generator-cli"
+        "openapi": "openapi-generator-cli generate"
     },
     "author": "product-live",
     "license": "ISC",
