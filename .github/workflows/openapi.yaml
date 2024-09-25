@@ -1,0 +1,33 @@
+on:
+  workflow_dispatch:
+
+name: kiota
+
+jobs:
+  generate-sdk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Generate client
+        run: |
+          npm install
+          npm run openapi -- -g typescript -i https://api-next.dev.product-live.com/-json -o ./src/sdk-openapi -p fileContentDataType=Buffer,platform=node
+      - name: commit
+        uses: EndBug/add-and-commit@v9
+        with:
+
+          # Arguments for the git fetch command. If set to false, the action won't fetch the repo.
+          # For more info as to why fetching is usually recommended, please see the "Performance on large repos" FAQ.
+          # Default: --tags --force
+          fetch: false
+
+          # The message for the commit.
+          # Default: 'Commit from GitHub Actions (name of the workflow)'
+          message: 'Your commit message'
+
+          # Whether to push the commit and, if any, its tags to the repo. It can also be used to set the git push arguments (see the paragraph below for more info)
+          # Default: true
+          push: true

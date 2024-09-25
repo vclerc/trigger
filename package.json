@@ -1,0 +1,15 @@
+{
+    "name": "@vclerc/trigger",
+    "version": "1.0.0",
+    "description": "Misc",
+    "main": "./cli/index.js",
+    "type": "module",
+    "scripts": {
+        "openapi": "openapi-generator-cli"
+    },
+    "author": "product-live",
+    "license": "ISC",
+    "dependencies": {
+        "@openapitools/openapi-generator-cli": "^2.13.9"
+    }
+}
