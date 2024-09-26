@@ -4,12 +4,6 @@
     "description": "Misc",
     "main": "./cli/index.js",
     "type": "module",
-    "scripts": {
-        "openapi": "openapi-generator-cli generate"
-    },
     "author": "product-live",
-    "license": "ISC",
-    "dependencies": {
-        "@openapitools/openapi-generator-cli": "^2.13.9"
-    }
+    "license": "ISC"
 }
