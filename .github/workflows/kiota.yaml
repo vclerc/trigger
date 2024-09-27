@@ -11,7 +11,7 @@ jobs:
       - id: setup-kiota
         uses: microsoft/setup-kiota@v0.5.0
         with:
-          version: v1.17.0
+          version: latest
       - run: echo "${{ steps.setup-kiota.outputs.version }}"
       - name: Generate client
         run: kiota generate --openapi https://api-next.dev.product-live.com/-json --language typescript --output ./packages/sdk -c PLSdk
