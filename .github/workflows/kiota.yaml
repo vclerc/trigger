@@ -10,6 +10,9 @@ jobs:
       - uses: actions/checkout@v3
       - id: setup-kiota
         uses: microsoft/setup-kiota@v0.5.0
+        with:
+          version: v1.19.0-preview.202409260001
+          includePreRelease: true
       - run: echo "${{ steps.setup-kiota.outputs.version }}"
       - name: Generate client
         run: kiota generate --openapi https://api-next.dev.product-live.com/-json --language typescript --output ./packages/sdk
