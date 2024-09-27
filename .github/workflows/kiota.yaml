@@ -14,7 +14,7 @@ jobs:
           version: v1.17.0
       - run: echo "${{ steps.setup-kiota.outputs.version }}"
       - name: Generate client
-        run: kiota generate --openapi https://api-next.dev.product-live.com/-json --language typescript --output ./packages/sdk
+        run: kiota generate --openapi https://api-next.dev.product-live.com/-json --language typescript --output ./packages/sdk -c PLSdk
       - name: commit
         uses: EndBug/add-and-commit@v9
         with:
