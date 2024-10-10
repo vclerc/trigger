@@ -1,0 +1,33 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "declaration": true,
+        "noImplicitAny": false,
+        "removeComments": false,
+        "noLib": false,
+        "incremental": true,
+        "useDefineForClassFields": false,
+        "allowSyntheticDefaultImports": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "strictNullChecks": true,
+        "importHelpers": true,
+        "target": "es2022",
+        "sourceMap": true,
+        "outDir": "./dist",
+        "baseUrl": ".",
+        "paths": {},
+        "lib": ["es2022", "DOM"]
+    },
+    "ts-node": {
+        "transpileOnly": true,
+        "files": true
+    },
+    "include": [
+        "packages/**/*"
+    ],
+    "exclude": [
+        "packages/tests/**/*",
+        "node_modules/**/*"
+    ]
+}
