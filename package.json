@@ -2,8 +2,24 @@
     "name": "@vclerc/trigger",
     "version": "1.0.0",
     "description": "Misc",
-    "main": "./cli/index.js",
-    "type": "module",
+    "scripts": {
+        "build": "npx tsc",
+        "test": "jest",
+        "run": "ts-node ./packages/manual-tests/index.ts"
+    },
     "author": "product-live",
-    "license": "ISC"
+    "license": "ISC",
+    "dependencies": {
+        "@microsoft/kiota-http-fetchlibrary": "^1.0.0-preview.65",
+        "@microsoft/kiota-serialization-form": "^1.0.0-preview.54",
+        "@microsoft/kiota-serialization-json": "^1.0.0-preview.66",
+        "@microsoft/kiota-serialization-multipart": "^1.0.0-preview.44",
+        "@microsoft/kiota-serialization-text": "^1.0.0-preview.63",
+        "@types/jest": "^29.5.13",
+        "jest": "^29.7.0",
+        "jest-cli": "^29.7.0",
+        "ts-jest": "^29.2.5",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.6.2"
+    }
 }
