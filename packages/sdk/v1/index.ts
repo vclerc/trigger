@@ -4,11 +4,17 @@
 // @ts-ignore
 import { AccountsRequestBuilderNavigationMetadata, AccountsRequestBuilderRequestsMetadata, type AccountsRequestBuilder } from './accounts/index.js';
 // @ts-ignore
+import { Audit_logsRequestBuilderNavigationMetadata, Audit_logsRequestBuilderRequestsMetadata, type Audit_logsRequestBuilder } from './audit_logs/index.js';
+// @ts-ignore
 import { Comment_thread_subscribersRequestBuilderNavigationMetadata, Comment_thread_subscribersRequestBuilderRequestsMetadata, type Comment_thread_subscribersRequestBuilder } from './comment_thread_subscribers/index.js';
 // @ts-ignore
 import { Comment_threadsRequestBuilderNavigationMetadata, Comment_threadsRequestBuilderRequestsMetadata, type Comment_threadsRequestBuilder } from './comment_threads/index.js';
 // @ts-ignore
 import { Data_factoryRequestBuilderNavigationMetadata, type Data_factoryRequestBuilder } from './data_factory/index.js';
+// @ts-ignore
+import { Field_valuesRequestBuilderNavigationMetadata, Field_valuesRequestBuilderRequestsMetadata, type Field_valuesRequestBuilder } from './field_values/index.js';
+// @ts-ignore
+import { FieldsRequestBuilderNavigationMetadata, FieldsRequestBuilderRequestsMetadata, type FieldsRequestBuilder } from './fields/index.js';
 // @ts-ignore
 import { Item_linksRequestBuilderNavigationMetadata, Item_linksRequestBuilderRequestsMetadata, type Item_linksRequestBuilder } from './item_links/index.js';
 // @ts-ignore
@@ -16,11 +22,19 @@ import { ItemsRequestBuilderNavigationMetadata, ItemsRequestBuilderRequestsMetad
 // @ts-ignore
 import { LevelsRequestBuilderNavigationMetadata, LevelsRequestBuilderRequestsMetadata, type LevelsRequestBuilder } from './levels/index.js';
 // @ts-ignore
+import { Matrix_fieldsRequestBuilderNavigationMetadata, Matrix_fieldsRequestBuilderRequestsMetadata, type Matrix_fieldsRequestBuilder } from './matrix_fields/index.js';
+// @ts-ignore
 import { PartitionsRequestBuilderNavigationMetadata, PartitionsRequestBuilderRequestsMetadata, type PartitionsRequestBuilder } from './partitions/index.js';
 // @ts-ignore
 import { PublicationsRequestBuilderNavigationMetadata, PublicationsRequestBuilderRequestsMetadata, type PublicationsRequestBuilder } from './publications/index.js';
 // @ts-ignore
+import { Screen_columnsRequestBuilderNavigationMetadata, Screen_columnsRequestBuilderRequestsMetadata, type Screen_columnsRequestBuilder } from './screen_columns/index.js';
+// @ts-ignore
+import { Screen_sectionsRequestBuilderNavigationMetadata, Screen_sectionsRequestBuilderRequestsMetadata, type Screen_sectionsRequestBuilder } from './screen_sections/index.js';
+// @ts-ignore
 import { ScreensRequestBuilderNavigationMetadata, ScreensRequestBuilderRequestsMetadata, type ScreensRequestBuilder } from './screens/index.js';
+// @ts-ignore
+import { SectionsRequestBuilderNavigationMetadata, SectionsRequestBuilderRequestsMetadata, type SectionsRequestBuilder } from './sections/index.js';
 // @ts-ignore
 import { SuggestionsRequestBuilderNavigationMetadata, SuggestionsRequestBuilderRequestsMetadata, type SuggestionsRequestBuilder } from './suggestions/index.js';
 // @ts-ignore
@@ -39,6 +53,10 @@ export interface V1RequestBuilder extends BaseRequestBuilder<V1RequestBuilder> {
      */
     get accounts(): AccountsRequestBuilder;
     /**
+     * The audit_logs property
+     */
+    get audit_logs(): Audit_logsRequestBuilder;
+    /**
      * The comment_thread_subscribers property
      */
     get comment_thread_subscribers(): Comment_thread_subscribersRequestBuilder;
@@ -50,6 +68,14 @@ export interface V1RequestBuilder extends BaseRequestBuilder<V1RequestBuilder> {
      * The data_factory property
      */
     get data_factory(): Data_factoryRequestBuilder;
+    /**
+     * The field_values property
+     */
+    get field_values(): Field_valuesRequestBuilder;
+    /**
+     * The fields property
+     */
+    get fields(): FieldsRequestBuilder;
     /**
      * The item_links property
      */
@@ -63,6 +89,10 @@ export interface V1RequestBuilder extends BaseRequestBuilder<V1RequestBuilder> {
      */
     get levels(): LevelsRequestBuilder;
     /**
+     * The matrix_fields property
+     */
+    get matrix_fields(): Matrix_fieldsRequestBuilder;
+    /**
      * The partitions property
      */
     get partitions(): PartitionsRequestBuilder;
@@ -71,9 +101,21 @@ export interface V1RequestBuilder extends BaseRequestBuilder<V1RequestBuilder> {
      */
     get publications(): PublicationsRequestBuilder;
     /**
+     * The screen_columns property
+     */
+    get screen_columns(): Screen_columnsRequestBuilder;
+    /**
+     * The screen_sections property
+     */
+    get screen_sections(): Screen_sectionsRequestBuilder;
+    /**
      * The screens property
      */
     get screens(): ScreensRequestBuilder;
+    /**
+     * The sections property
+     */
+    get sections(): SectionsRequestBuilder;
     /**
      * The suggestions property
      */
@@ -99,6 +141,10 @@ export const V1RequestBuilderNavigationMetadata: Record<Exclude<keyof V1RequestB
         requestsMetadata: AccountsRequestBuilderRequestsMetadata,
         navigationMetadata: AccountsRequestBuilderNavigationMetadata,
     },
+    audit_logs: {
+        requestsMetadata: Audit_logsRequestBuilderRequestsMetadata,
+        navigationMetadata: Audit_logsRequestBuilderNavigationMetadata,
+    },
     comment_threads: {
         requestsMetadata: Comment_threadsRequestBuilderRequestsMetadata,
         navigationMetadata: Comment_threadsRequestBuilderNavigationMetadata,
@@ -109,6 +155,14 @@ export const V1RequestBuilderNavigationMetadata: Record<Exclude<keyof V1RequestB
     },
     data_factory: {
         navigationMetadata: Data_factoryRequestBuilderNavigationMetadata,
+    },
+    fields: {
+        requestsMetadata: FieldsRequestBuilderRequestsMetadata,
+        navigationMetadata: FieldsRequestBuilderNavigationMetadata,
+    },
+    field_values: {
+        requestsMetadata: Field_valuesRequestBuilderRequestsMetadata,
+        navigationMetadata: Field_valuesRequestBuilderNavigationMetadata,
     },
     items: {
         requestsMetadata: ItemsRequestBuilderRequestsMetadata,
@@ -122,6 +176,10 @@ export const V1RequestBuilderNavigationMetadata: Record<Exclude<keyof V1RequestB
         requestsMetadata: LevelsRequestBuilderRequestsMetadata,
         navigationMetadata: LevelsRequestBuilderNavigationMetadata,
     },
+    matrix_fields: {
+        requestsMetadata: Matrix_fieldsRequestBuilderRequestsMetadata,
+        navigationMetadata: Matrix_fieldsRequestBuilderNavigationMetadata,
+    },
     partitions: {
         requestsMetadata: PartitionsRequestBuilderRequestsMetadata,
         navigationMetadata: PartitionsRequestBuilderNavigationMetadata,
@@ -133,6 +191,18 @@ export const V1RequestBuilderNavigationMetadata: Record<Exclude<keyof V1RequestB
     screens: {
         requestsMetadata: ScreensRequestBuilderRequestsMetadata,
         navigationMetadata: ScreensRequestBuilderNavigationMetadata,
+    },
+    screen_columns: {
+        requestsMetadata: Screen_columnsRequestBuilderRequestsMetadata,
+        navigationMetadata: Screen_columnsRequestBuilderNavigationMetadata,
+    },
+    screen_sections: {
+        requestsMetadata: Screen_sectionsRequestBuilderRequestsMetadata,
+        navigationMetadata: Screen_sectionsRequestBuilderNavigationMetadata,
+    },
+    sections: {
+        requestsMetadata: SectionsRequestBuilderRequestsMetadata,
+        navigationMetadata: SectionsRequestBuilderNavigationMetadata,
     },
     suggestions: {
         requestsMetadata: SuggestionsRequestBuilderRequestsMetadata,

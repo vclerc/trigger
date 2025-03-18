@@ -69,6 +69,7 @@ export function deserializeIntoJobExecutionDto400Error(jobExecutionDto400Error: 
         "message": n => { jobExecutionDto400Error.messageEscaped = n.getStringValue(); },
     }
 }
+export type GetSortOrderQueryParameterType = (typeof GetSortOrderQueryParameterTypeObject)[keyof typeof GetSortOrderQueryParameterTypeObject];
 export interface Job_executions400Error extends AdditionalDataHolder, ApiError, Parsable {
     /**
      * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
@@ -147,6 +148,8 @@ export interface Job_executionsRequestBuilder extends BaseRequestBuilder<Job_exe
 export interface Job_executionsRequestBuilderGetQueryParameters {
     page?: number;
     size?: number;
+    sort?: string;
+    sortOrder?: GetSortOrderQueryParameterType;
 }
 export interface JobExecutionDto400Error extends AdditionalDataHolder, ApiError, Parsable {
     /**
@@ -196,7 +199,11 @@ export function serializeJobExecutionDto400Error(writer: SerializationWriter, jo
 /**
  * Uri template for the request builder.
  */
-export const Job_executionsRequestBuilderUriTemplate = "{+baseurl}/v1/data_factory/job_executions{?page*,size*}";
+export const Job_executionsRequestBuilderUriTemplate = "{+baseurl}/v1/data_factory/job_executions{?page*,size*,sort*,sortOrder*}";
+export const GetSortOrderQueryParameterTypeObject = {
+    DESC: "DESC",
+    ASC: "ASC",
+} as const;
 export const Job_executionsGetResponse_objectObject = {
     List: "list",
 } as const;

@@ -8,6 +8,8 @@ import { FindRequestBuilderRequestsMetadata, type FindRequestBuilder } from './f
 // @ts-ignore
 import { type UsersItemRequestBuilder, UsersItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
+import { type WhoamiRequestBuilder, WhoamiRequestBuilderRequestsMetadata } from './whoami/index.js';
+// @ts-ignore
 import { type AdditionalDataHolder, type ApiError, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
@@ -50,6 +52,7 @@ export function deserializeIntoUsersGetResponse(usersGetResponse: Partial<UsersG
         "totalElements": n => { usersGetResponse.totalElements = n.getNumberValue(); },
     }
 }
+export type GetSortOrderQueryParameterType = (typeof GetSortOrderQueryParameterTypeObject)[keyof typeof GetSortOrderQueryParameterTypeObject];
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
@@ -112,6 +115,10 @@ export interface UsersRequestBuilder extends BaseRequestBuilder<UsersRequestBuil
      */
     get find(): FindRequestBuilder;
     /**
+     * The whoami property
+     */
+    get whoami(): WhoamiRequestBuilder;
+    /**
      * Gets an item from the ApiSdk.v1.users.item collection
      * @param id Unique identifier of the item
      * @returns {UsersItemRequestBuilder}
@@ -137,11 +144,17 @@ export interface UsersRequestBuilder extends BaseRequestBuilder<UsersRequestBuil
 export interface UsersRequestBuilderGetQueryParameters {
     page?: number;
     size?: number;
+    sort?: string;
+    sortOrder?: GetSortOrderQueryParameterType;
 }
 /**
  * Uri template for the request builder.
  */
-export const UsersRequestBuilderUriTemplate = "{+baseurl}/v1/users{?page*,size*}";
+export const UsersRequestBuilderUriTemplate = "{+baseurl}/v1/users{?page*,size*,sort*,sortOrder*}";
+export const GetSortOrderQueryParameterTypeObject = {
+    DESC: "DESC",
+    ASC: "ASC",
+} as const;
 export const UsersGetResponse_objectObject = {
     List: "list",
 } as const;
@@ -155,6 +168,9 @@ export const UsersRequestBuilderNavigationMetadata: Record<Exclude<keyof UsersRe
     },
     find: {
         requestsMetadata: FindRequestBuilderRequestsMetadata,
+    },
+    whoami: {
+        requestsMetadata: WhoamiRequestBuilderRequestsMetadata,
     },
 };
 /**

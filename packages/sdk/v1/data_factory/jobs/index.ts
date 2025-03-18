@@ -67,6 +67,7 @@ export function deserializeIntoJobsGetResponse(jobsGetResponse: Partial<JobsGetR
         "totalElements": n => { jobsGetResponse.totalElements = n.getNumberValue(); },
     }
 }
+export type GetSortOrderQueryParameterType = (typeof GetSortOrderQueryParameterTypeObject)[keyof typeof GetSortOrderQueryParameterTypeObject];
 export interface JobDto400Error extends AdditionalDataHolder, ApiError, Parsable {
     /**
      * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
@@ -151,6 +152,8 @@ export interface JobsRequestBuilder extends BaseRequestBuilder<JobsRequestBuilde
 export interface JobsRequestBuilderGetQueryParameters {
     page?: number;
     size?: number;
+    sort?: string;
+    sortOrder?: GetSortOrderQueryParameterType;
 }
 /**
  * Serializes information the current object
@@ -190,7 +193,11 @@ export function serializeJobsGetResponse(writer: SerializationWriter, jobsGetRes
 /**
  * Uri template for the request builder.
  */
-export const JobsRequestBuilderUriTemplate = "{+baseurl}/v1/data_factory/jobs{?page*,size*}";
+export const JobsRequestBuilderUriTemplate = "{+baseurl}/v1/data_factory/jobs{?page*,size*,sort*,sortOrder*}";
+export const GetSortOrderQueryParameterTypeObject = {
+    DESC: "DESC",
+    ASC: "ASC",
+} as const;
 export const JobsGetResponse_objectObject = {
     List: "list",
 } as const;

@@ -4,6 +4,8 @@
 // @ts-ignore
 import { createItemDtoFromDiscriminatorValue, serializeItemDto, type ItemDto } from '../../models/index.js';
 // @ts-ignore
+import { CreateOrUpdateRequestBuilderRequestsMetadata, type CreateOrUpdateRequestBuilder } from './createOrUpdate/index.js';
+// @ts-ignore
 import { FindRequestBuilderNavigationMetadata, FindRequestBuilderRequestsMetadata, type FindRequestBuilder } from './find/index.js';
 // @ts-ignore
 import { ItemsItemRequestBuilderRequestsMetadata, type ItemsItemRequestBuilder } from './item/index.js';
@@ -50,6 +52,7 @@ export function deserializeIntoItemsGetResponse(itemsGetResponse: Partial<ItemsG
         "totalElements": n => { itemsGetResponse.totalElements = n.getNumberValue(); },
     }
 }
+export type GetSortOrderQueryParameterType = (typeof GetSortOrderQueryParameterTypeObject)[keyof typeof GetSortOrderQueryParameterTypeObject];
 export interface Items400Error extends AdditionalDataHolder, ApiError, Parsable {
     /**
      * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
@@ -84,6 +87,11 @@ export type ItemsGetResponse_object = (typeof ItemsGetResponse_objectObject)[key
  */
 export interface ItemsRequestBuilder extends BaseRequestBuilder<ItemsRequestBuilder> {
     /**
+     * The createOrUpdate property
+     * @deprecated 
+     */
+    get createOrUpdate(): CreateOrUpdateRequestBuilder;
+    /**
      * The find property
      * @deprecated 
      */
@@ -116,6 +124,8 @@ export interface ItemsRequestBuilder extends BaseRequestBuilder<ItemsRequestBuil
 export interface ItemsRequestBuilderGetQueryParameters {
     page?: number;
     size?: number;
+    sort?: string;
+    sortOrder?: GetSortOrderQueryParameterType;
 }
 /**
  * Serializes information the current object
@@ -144,7 +154,11 @@ export function serializeItemsGetResponse(writer: SerializationWriter, itemsGetR
 /**
  * Uri template for the request builder.
  */
-export const ItemsRequestBuilderUriTemplate = "{+baseurl}/v1/items{?page*,size*}";
+export const ItemsRequestBuilderUriTemplate = "{+baseurl}/v1/items{?page*,size*,sort*,sortOrder*}";
+export const GetSortOrderQueryParameterTypeObject = {
+    DESC: "DESC",
+    ASC: "ASC",
+} as const;
 export const ItemsGetResponse_objectObject = {
     List: "list",
 } as const;
@@ -155,6 +169,9 @@ export const ItemsRequestBuilderNavigationMetadata: Record<Exclude<keyof ItemsRe
     byId: {
         requestsMetadata: ItemsItemRequestBuilderRequestsMetadata,
         pathParametersMappings: ["id"],
+    },
+    createOrUpdate: {
+        requestsMetadata: CreateOrUpdateRequestBuilderRequestsMetadata,
     },
     find: {
         requestsMetadata: FindRequestBuilderRequestsMetadata,

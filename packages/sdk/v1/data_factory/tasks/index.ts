@@ -67,6 +67,7 @@ export function deserializeIntoTasksGetResponse(tasksGetResponse: Partial<TasksG
         "totalElements": n => { tasksGetResponse.totalElements = n.getNumberValue(); },
     }
 }
+export type GetSortOrderQueryParameterType = (typeof GetSortOrderQueryParameterTypeObject)[keyof typeof GetSortOrderQueryParameterTypeObject];
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
@@ -186,11 +187,17 @@ export interface TasksRequestBuilder extends BaseRequestBuilder<TasksRequestBuil
 export interface TasksRequestBuilderGetQueryParameters {
     page?: number;
     size?: number;
+    sort?: string;
+    sortOrder?: GetSortOrderQueryParameterType;
 }
 /**
  * Uri template for the request builder.
  */
-export const TasksRequestBuilderUriTemplate = "{+baseurl}/v1/data_factory/tasks{?page*,size*}";
+export const TasksRequestBuilderUriTemplate = "{+baseurl}/v1/data_factory/tasks{?page*,size*,sort*,sortOrder*}";
+export const GetSortOrderQueryParameterTypeObject = {
+    DESC: "DESC",
+    ASC: "ASC",
+} as const;
 export const TasksGetResponse_objectObject = {
     List: "list",
 } as const;

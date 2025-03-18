@@ -46,6 +46,7 @@ export function deserializeIntoWithLevelPostResponse(withLevelPostResponse: Part
         "totalElements": n => { withLevelPostResponse.totalElements = n.getNumberValue(); },
     }
 }
+export type PostSortOrderQueryParameterType = (typeof PostSortOrderQueryParameterTypeObject)[keyof typeof PostSortOrderQueryParameterTypeObject];
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
@@ -108,6 +109,8 @@ export interface WithLevelItemRequestBuilder extends BaseRequestBuilder<WithLeve
 export interface WithLevelItemRequestBuilderPostQueryParameters {
     page?: number;
     size?: number;
+    sort?: string;
+    sortOrder?: PostSortOrderQueryParameterType;
 }
 export interface WithLevelPostResponse extends AdditionalDataHolder, Parsable {
     /**
@@ -131,7 +134,11 @@ export type WithLevelPostResponse_object = (typeof WithLevelPostResponse_objectO
 /**
  * Uri template for the request builder.
  */
-export const WithLevelItemRequestBuilderUriTemplate = "{+baseurl}/v1/items/find/table/{tableId}/partition/{partitionId}/level/{levelId}{?page*,size*}";
+export const WithLevelItemRequestBuilderUriTemplate = "{+baseurl}/v1/items/find/table/{tableId}/partition/{partitionId}/level/{levelId}{?page*,size*,sort*,sortOrder*}";
+export const PostSortOrderQueryParameterTypeObject = {
+    DESC: "DESC",
+    ASC: "ASC",
+} as const;
 /**
  * Metadata for all the requests in the request builder.
  */

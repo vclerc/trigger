@@ -69,6 +69,7 @@ export function deserializeIntoPublicationsGetResponse(publicationsGetResponse: 
         "totalElements": n => { publicationsGetResponse.totalElements = n.getNumberValue(); },
     }
 }
+export type GetSortOrderQueryParameterType = (typeof GetSortOrderQueryParameterTypeObject)[keyof typeof GetSortOrderQueryParameterTypeObject];
 export interface PublicationDto400Error extends AdditionalDataHolder, ApiError, Parsable {
     /**
      * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
@@ -157,6 +158,8 @@ export interface PublicationsRequestBuilder extends BaseRequestBuilder<Publicati
 export interface PublicationsRequestBuilderGetQueryParameters {
     page?: number;
     size?: number;
+    sort?: string;
+    sortOrder?: GetSortOrderQueryParameterType;
 }
 /**
  * Serializes information the current object
@@ -196,7 +199,11 @@ export function serializePublicationsGetResponse(writer: SerializationWriter, pu
 /**
  * Uri template for the request builder.
  */
-export const PublicationsRequestBuilderUriTemplate = "{+baseurl}/v1/publications{?page*,size*}";
+export const PublicationsRequestBuilderUriTemplate = "{+baseurl}/v1/publications{?page*,size*,sort*,sortOrder*}";
+export const GetSortOrderQueryParameterTypeObject = {
+    DESC: "DESC",
+    ASC: "ASC",
+} as const;
 export const PublicationsGetResponse_objectObject = {
     List: "list",
 } as const;

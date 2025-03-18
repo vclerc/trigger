@@ -31,6 +31,42 @@ export function createFindPostResponseFromDiscriminatorValue(parseNode: ParseNod
  */
 // @ts-ignore
 export function createQueryDTOFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    const mappingValueNode = parseNode?.getChildNode("type");
+    if (mappingValueNode) {
+        const mappingValue = mappingValueNode.getStringValue();
+        if (mappingValue) {
+            switch (mappingValue) {
+                case "and":
+                    return deserializeIntoHighOrderQueryDTO;
+                case "eq":
+                    return deserializeIntoLowOrderQueryDTO;
+                case "false":
+                    return deserializeIntoLowOrderQueryDTO;
+                case "greater":
+                    return deserializeIntoLowOrderQueryDTO;
+                case "greaterOrEqual":
+                    return deserializeIntoLowOrderQueryDTO;
+                case "in":
+                    return deserializeIntoLowOrderQueryDTO;
+                case "isNull":
+                    return deserializeIntoLowOrderQueryDTO;
+                case "localizedSearch":
+                    return deserializeIntoLowOrderQueryDTO;
+                case "lower":
+                    return deserializeIntoLowOrderQueryDTO;
+                case "lowerOrEqual":
+                    return deserializeIntoLowOrderQueryDTO;
+                case "notIn":
+                    return deserializeIntoLowOrderQueryDTO;
+                case "or":
+                    return deserializeIntoHighOrderQueryDTO;
+                case "search":
+                    return deserializeIntoLowOrderQueryDTO;
+                case "true":
+                    return deserializeIntoLowOrderQueryDTO;
+            }
+        }
+    }
     return deserializeIntoQueryDTO;
 }
 /**
@@ -121,7 +157,10 @@ export interface FindRequestBuilder extends BaseRequestBuilder<FindRequestBuilde
 export interface FindRequestBuilderPostQueryParameters {
     page?: number;
     size?: number;
+    sort?: string;
+    sortOrder?: PostSortOrderQueryParameterType;
 }
+export type PostSortOrderQueryParameterType = (typeof PostSortOrderQueryParameterTypeObject)[keyof typeof PostSortOrderQueryParameterTypeObject];
 export type QueryDTO = HighOrderQueryDTO | LowOrderQueryDTO;
 /**
  * Serializes information the current object
@@ -153,13 +192,56 @@ export function serializeFindPostResponse(writer: SerializationWriter, findPostR
  */
 // @ts-ignore
 export function serializeQueryDTO(writer: SerializationWriter, queryDTO: Partial<HighOrderQueryDTO | LowOrderQueryDTO> | undefined | null = {}) : void {
-    serializeHighOrderQueryDTO(writer, queryDTO as HighOrderQueryDTO);
-    serializeLowOrderQueryDTO(writer, queryDTO as LowOrderQueryDTO);
+    if (queryDTO === undefined || queryDTO === null) return;
+    switch (queryDTO.type) {
+        case "and":
+            serializeHighOrderQueryDTO(writer, queryDTO as HighOrderQueryDTO);
+            break;
+        case "eq":
+            serializeLowOrderQueryDTO(writer, queryDTO as LowOrderQueryDTO);
+            break;
+        case "false":
+            serializeLowOrderQueryDTO(writer, queryDTO as LowOrderQueryDTO);
+            break;
+        case "greater":
+            serializeLowOrderQueryDTO(writer, queryDTO as LowOrderQueryDTO);
+            break;
+        case "greaterOrEqual":
+            serializeLowOrderQueryDTO(writer, queryDTO as LowOrderQueryDTO);
+            break;
+        case "in":
+            serializeLowOrderQueryDTO(writer, queryDTO as LowOrderQueryDTO);
+            break;
+        case "isNull":
+            serializeLowOrderQueryDTO(writer, queryDTO as LowOrderQueryDTO);
+            break;
+        case "localizedSearch":
+            serializeLowOrderQueryDTO(writer, queryDTO as LowOrderQueryDTO);
+            break;
+        case "lower":
+            serializeLowOrderQueryDTO(writer, queryDTO as LowOrderQueryDTO);
+            break;
+        case "lowerOrEqual":
+            serializeLowOrderQueryDTO(writer, queryDTO as LowOrderQueryDTO);
+            break;
+        case "notIn":
+            serializeLowOrderQueryDTO(writer, queryDTO as LowOrderQueryDTO);
+            break;
+        case "or":
+            serializeHighOrderQueryDTO(writer, queryDTO as HighOrderQueryDTO);
+            break;
+        case "search":
+            serializeLowOrderQueryDTO(writer, queryDTO as LowOrderQueryDTO);
+            break;
+        case "true":
+            serializeLowOrderQueryDTO(writer, queryDTO as LowOrderQueryDTO);
+            break;
+    }
 }
 /**
  * Uri template for the request builder.
  */
-export const FindRequestBuilderUriTemplate = "{+baseurl}/v1/publications/find{?page*,size*}";
+export const FindRequestBuilderUriTemplate = "{+baseurl}/v1/publications/find{?page*,size*,sort*,sortOrder*}";
 export const FindPostResponse_objectObject = {
     List: "list",
 } as const;
@@ -180,5 +262,9 @@ export const FindRequestBuilderRequestsMetadata: RequestsMetadata = {
         requestInformationContentSetMethod: "setContentFromParsable",
     },
 };
+export const PostSortOrderQueryParameterTypeObject = {
+    DESC: "DESC",
+    ASC: "ASC",
+} as const;
 /* tslint:enable */
 /* eslint-enable */
