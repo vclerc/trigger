@@ -15,7 +15,7 @@ jobs:
           includePreRelease: true
       - run: echo "${{ steps.setup-kiota.outputs.version }}"
       - name: Generate client
-        run: kiota generate --openapi https://api-next.dev.product-live.com/-json --language typescript --output ./packages/sdk -c PLSdk
+        run: kiota generate --openapi https://api-f4.dev.product-live.com/-json --language typescript --output ./packages/sdk -c PLSdk
       - name: commit
         uses: EndBug/add-and-commit@v9
         with:
