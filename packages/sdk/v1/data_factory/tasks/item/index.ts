@@ -18,6 +18,15 @@ export function createTaskDto400ErrorFromDiscriminatorValue(parseNode: ParseNode
     return deserializeIntoTaskDto400Error;
 }
 /**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Tasks400Error}
+ */
+// @ts-ignore
+export function createTasks400ErrorFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoTasks400Error;
+}
+/**
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -25,6 +34,16 @@ export function createTaskDto400ErrorFromDiscriminatorValue(parseNode: ParseNode
 export function deserializeIntoTaskDto400Error(taskDto400Error: Partial<TaskDto400Error> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "message": n => { taskDto400Error.messageEscaped = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoTasks400Error(tasks400Error: Partial<Tasks400Error> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "message": n => { tasks400Error.messageEscaped = n.getStringValue(); },
     }
 }
 /**
@@ -38,7 +57,28 @@ export function serializeTaskDto400Error(writer: SerializationWriter, taskDto400
         writer.writeAdditionalData(taskDto400Error.additionalData);
     }
 }
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeTasks400Error(writer: SerializationWriter, tasks400Error: Partial<Tasks400Error> | undefined | null = {}) : void {
+    if (tasks400Error) {
+        writer.writeStringValue("message", tasks400Error.messageEscaped);
+        writer.writeAdditionalData(tasks400Error.additionalData);
+    }
+}
 export interface TaskDto400Error extends AdditionalDataHolder, ApiError, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
+    /**
+     * The message property
+     */
+    messageEscaped?: string | null;
+}
+export interface Tasks400Error extends AdditionalDataHolder, ApiError, Parsable {
     /**
      * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
      */
@@ -59,10 +99,9 @@ export interface TasksItemRequestBuilder extends BaseRequestBuilder<TasksItemReq
     /**
      * Delete a Task by id
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @returns {Promise<TaskDto>}
-     * @throws {TaskDto400Error} error when the service returns a 400 status code
+     * @throws {Tasks400Error} error when the service returns a 400 status code
      */
-     delete(requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<TaskDto | undefined>;
+     delete(requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<void>;
     /**
      * Get a Task by id
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
@@ -118,10 +157,9 @@ export const TasksItemRequestBuilderRequestsMetadata: RequestsMetadata = {
         uriTemplate: TasksItemRequestBuilderUriTemplate,
         responseBodyContentType: "application/json",
         errorMappings: {
-            400: createTaskDto400ErrorFromDiscriminatorValue as ParsableFactory<Parsable>,
+            400: createTasks400ErrorFromDiscriminatorValue as ParsableFactory<Parsable>,
         },
-        adapterMethodName: "send",
-        responseBodyFactory:  createTaskDtoFromDiscriminatorValue,
+        adapterMethodName: "sendNoResponseContent",
     },
     get: {
         uriTemplate: TasksItemRequestBuilderUriTemplate,

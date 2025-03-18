@@ -73,6 +73,8 @@ export interface Comment_thread_subscribersRequestBuilder extends BaseRequestBui
 export interface Comment_thread_subscribersRequestBuilderGetQueryParameters {
     page?: number;
     size?: number;
+    sort?: string;
+    sortOrder?: GetSortOrderQueryParameterType;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -114,6 +116,7 @@ export function deserializeIntoComment_thread_subscribersGetResponse(comment_thr
         "totalElements": n => { comment_thread_subscribersGetResponse.totalElements = n.getNumberValue(); },
     }
 }
+export type GetSortOrderQueryParameterType = (typeof GetSortOrderQueryParameterTypeObject)[keyof typeof GetSortOrderQueryParameterTypeObject];
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
@@ -141,7 +144,7 @@ export function serializeComment_thread_subscribersGetResponse(writer: Serializa
 /**
  * Uri template for the request builder.
  */
-export const Comment_thread_subscribersRequestBuilderUriTemplate = "{+baseurl}/v1/comment_thread_subscribers{?page*,size*}";
+export const Comment_thread_subscribersRequestBuilderUriTemplate = "{+baseurl}/v1/comment_thread_subscribers{?page*,size*,sort*,sortOrder*}";
 export const Comment_thread_subscribersGetResponse_objectObject = {
     List: "list",
 } as const;
@@ -171,5 +174,9 @@ export const Comment_thread_subscribersRequestBuilderRequestsMetadata: RequestsM
         responseBodyFactory:  createComment_thread_subscribersGetResponseFromDiscriminatorValue,
     },
 };
+export const GetSortOrderQueryParameterTypeObject = {
+    DESC: "DESC",
+    ASC: "ASC",
+} as const;
 /* tslint:enable */
 /* eslint-enable */

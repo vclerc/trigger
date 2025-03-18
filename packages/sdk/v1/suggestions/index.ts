@@ -69,6 +69,7 @@ export function deserializeIntoSuggestionsGetResponse(suggestionsGetResponse: Pa
         "totalElements": n => { suggestionsGetResponse.totalElements = n.getNumberValue(); },
     }
 }
+export type GetSortOrderQueryParameterType = (typeof GetSortOrderQueryParameterTypeObject)[keyof typeof GetSortOrderQueryParameterTypeObject];
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
@@ -192,11 +193,17 @@ export interface SuggestionsRequestBuilder extends BaseRequestBuilder<Suggestion
 export interface SuggestionsRequestBuilderGetQueryParameters {
     page?: number;
     size?: number;
+    sort?: string;
+    sortOrder?: GetSortOrderQueryParameterType;
 }
 /**
  * Uri template for the request builder.
  */
-export const SuggestionsRequestBuilderUriTemplate = "{+baseurl}/v1/suggestions{?page*,size*}";
+export const SuggestionsRequestBuilderUriTemplate = "{+baseurl}/v1/suggestions{?page*,size*,sort*,sortOrder*}";
+export const GetSortOrderQueryParameterTypeObject = {
+    DESC: "DESC",
+    ASC: "ASC",
+} as const;
 export const SuggestionsGetResponse_objectObject = {
     List: "list",
 } as const;

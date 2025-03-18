@@ -4,6 +4,8 @@
 // @ts-ignore
 import { createTableDtoFromDiscriminatorValue, serializeTableDto, type TableDto } from '../../models/index.js';
 // @ts-ignore
+import { FindRequestBuilderRequestsMetadata, type FindRequestBuilder } from './find/index.js';
+// @ts-ignore
 import { TablesItemRequestBuilderRequestsMetadata, type TablesItemRequestBuilder } from './item/index.js';
 // @ts-ignore
 import { type AdditionalDataHolder, type ApiError, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
@@ -48,6 +50,7 @@ export function deserializeIntoTablesGetResponse(tablesGetResponse: Partial<Tabl
         "totalElements": n => { tablesGetResponse.totalElements = n.getNumberValue(); },
     }
 }
+export type GetSortOrderQueryParameterType = (typeof GetSortOrderQueryParameterTypeObject)[keyof typeof GetSortOrderQueryParameterTypeObject];
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
@@ -106,6 +109,10 @@ export type TablesGetResponse_object = (typeof TablesGetResponse_objectObject)[k
  */
 export interface TablesRequestBuilder extends BaseRequestBuilder<TablesRequestBuilder> {
     /**
+     * The find property
+     */
+    get find(): FindRequestBuilder;
+    /**
      * Gets an item from the ApiSdk.v1.tables.item collection
      * @param id Unique identifier of the item
      * @returns {TablesItemRequestBuilder}
@@ -131,11 +138,17 @@ export interface TablesRequestBuilder extends BaseRequestBuilder<TablesRequestBu
 export interface TablesRequestBuilderGetQueryParameters {
     page?: number;
     size?: number;
+    sort?: string;
+    sortOrder?: GetSortOrderQueryParameterType;
 }
 /**
  * Uri template for the request builder.
  */
-export const TablesRequestBuilderUriTemplate = "{+baseurl}/v1/tables{?page*,size*}";
+export const TablesRequestBuilderUriTemplate = "{+baseurl}/v1/tables{?page*,size*,sort*,sortOrder*}";
+export const GetSortOrderQueryParameterTypeObject = {
+    DESC: "DESC",
+    ASC: "ASC",
+} as const;
 export const TablesGetResponse_objectObject = {
     List: "list",
 } as const;
@@ -146,6 +159,9 @@ export const TablesRequestBuilderNavigationMetadata: Record<Exclude<keyof Tables
     byId: {
         requestsMetadata: TablesItemRequestBuilderRequestsMetadata,
         pathParametersMappings: ["id"],
+    },
+    find: {
+        requestsMetadata: FindRequestBuilderRequestsMetadata,
     },
 };
 /**

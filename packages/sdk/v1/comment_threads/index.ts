@@ -88,6 +88,8 @@ export interface Comment_threadsRequestBuilder extends BaseRequestBuilder<Commen
 export interface Comment_threadsRequestBuilderGetQueryParameters {
     page?: number;
     size?: number;
+    sort?: string;
+    sortOrder?: GetSortOrderQueryParameterType;
 }
 export interface CommentThreadDto400Error extends AdditionalDataHolder, ApiError, Parsable {
     /**
@@ -158,6 +160,7 @@ export function deserializeIntoCommentThreadDto400Error(commentThreadDto400Error
         "message": n => { commentThreadDto400Error.messageEscaped = n.getStringValue(); },
     }
 }
+export type GetSortOrderQueryParameterType = (typeof GetSortOrderQueryParameterTypeObject)[keyof typeof GetSortOrderQueryParameterTypeObject];
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
@@ -196,7 +199,7 @@ export function serializeCommentThreadDto400Error(writer: SerializationWriter, c
 /**
  * Uri template for the request builder.
  */
-export const Comment_threadsRequestBuilderUriTemplate = "{+baseurl}/v1/comment_threads{?page*,size*}";
+export const Comment_threadsRequestBuilderUriTemplate = "{+baseurl}/v1/comment_threads{?page*,size*,sort*,sortOrder*}";
 export const Comment_threadsGetResponse_objectObject = {
     List: "list",
 } as const;
@@ -239,5 +242,9 @@ export const Comment_threadsRequestBuilderRequestsMetadata: RequestsMetadata = {
         requestInformationContentSetMethod: "setContentFromParsable",
     },
 };
+export const GetSortOrderQueryParameterTypeObject = {
+    DESC: "DESC",
+    ASC: "ASC",
+} as const;
 /* tslint:enable */
 /* eslint-enable */

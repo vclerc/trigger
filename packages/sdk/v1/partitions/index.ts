@@ -4,6 +4,8 @@
 // @ts-ignore
 import { createPartitionDtoFromDiscriminatorValue, serializePartitionDto, type PartitionDto } from '../../models/index.js';
 // @ts-ignore
+import { FindRequestBuilderRequestsMetadata, type FindRequestBuilder } from './find/index.js';
+// @ts-ignore
 import { PartitionsItemRequestBuilderRequestsMetadata, type PartitionsItemRequestBuilder } from './item/index.js';
 // @ts-ignore
 import { type AdditionalDataHolder, type ApiError, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
@@ -48,6 +50,7 @@ export function deserializeIntoPartitionsGetResponse(partitionsGetResponse: Part
         "totalElements": n => { partitionsGetResponse.totalElements = n.getNumberValue(); },
     }
 }
+export type GetSortOrderQueryParameterType = (typeof GetSortOrderQueryParameterTypeObject)[keyof typeof GetSortOrderQueryParameterTypeObject];
 export interface Partitions400Error extends AdditionalDataHolder, ApiError, Parsable {
     /**
      * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
@@ -82,6 +85,10 @@ export type PartitionsGetResponse_object = (typeof PartitionsGetResponse_objectO
  */
 export interface PartitionsRequestBuilder extends BaseRequestBuilder<PartitionsRequestBuilder> {
     /**
+     * The find property
+     */
+    get find(): FindRequestBuilder;
+    /**
      * Gets an item from the ApiSdk.v1.partitions.item collection
      * @param id Unique identifier of the item
      * @returns {PartitionsItemRequestBuilder}
@@ -107,6 +114,9 @@ export interface PartitionsRequestBuilder extends BaseRequestBuilder<PartitionsR
 export interface PartitionsRequestBuilderGetQueryParameters {
     page?: number;
     size?: number;
+    sort?: string;
+    sortOrder?: GetSortOrderQueryParameterType;
+    tableId?: string;
 }
 /**
  * Serializes information the current object
@@ -135,7 +145,11 @@ export function serializePartitionsGetResponse(writer: SerializationWriter, part
 /**
  * Uri template for the request builder.
  */
-export const PartitionsRequestBuilderUriTemplate = "{+baseurl}/v1/partitions{?page*,size*}";
+export const PartitionsRequestBuilderUriTemplate = "{+baseurl}/v1/partitions?tableId={tableId}{&page*,size*,sort*,sortOrder*}";
+export const GetSortOrderQueryParameterTypeObject = {
+    DESC: "DESC",
+    ASC: "ASC",
+} as const;
 export const PartitionsGetResponse_objectObject = {
     List: "list",
 } as const;
@@ -146,6 +160,9 @@ export const PartitionsRequestBuilderNavigationMetadata: Record<Exclude<keyof Pa
     byId: {
         requestsMetadata: PartitionsItemRequestBuilderRequestsMetadata,
         pathParametersMappings: ["id"],
+    },
+    find: {
+        requestsMetadata: FindRequestBuilderRequestsMetadata,
     },
 };
 /**

@@ -69,6 +69,7 @@ export function deserializeIntoItemLinkDto400Error(itemLinkDto400Error: Partial<
         "message": n => { itemLinkDto400Error.messageEscaped = n.getStringValue(); },
     }
 }
+export type GetSortOrderQueryParameterType = (typeof GetSortOrderQueryParameterTypeObject)[keyof typeof GetSortOrderQueryParameterTypeObject];
 export interface Item_links400Error extends AdditionalDataHolder, ApiError, Parsable {
     /**
      * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
@@ -147,6 +148,9 @@ export interface Item_linksRequestBuilder extends BaseRequestBuilder<Item_linksR
 export interface Item_linksRequestBuilderGetQueryParameters {
     page?: number;
     size?: number;
+    sort?: string;
+    sortOrder?: GetSortOrderQueryParameterType;
+    tableId?: string;
 }
 export interface ItemLinkDto400Error extends AdditionalDataHolder, ApiError, Parsable {
     /**
@@ -196,7 +200,11 @@ export function serializeItemLinkDto400Error(writer: SerializationWriter, itemLi
 /**
  * Uri template for the request builder.
  */
-export const Item_linksRequestBuilderUriTemplate = "{+baseurl}/v1/item_links{?page*,size*}";
+export const Item_linksRequestBuilderUriTemplate = "{+baseurl}/v1/item_links?tableId={tableId}{&page*,size*,sort*,sortOrder*}";
+export const GetSortOrderQueryParameterTypeObject = {
+    DESC: "DESC",
+    ASC: "ASC",
+} as const;
 export const Item_linksGetResponse_objectObject = {
     List: "list",
 } as const;

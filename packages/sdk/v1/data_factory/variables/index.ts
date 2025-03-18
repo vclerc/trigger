@@ -69,6 +69,7 @@ export function deserializeIntoVariablesGetResponse(variablesGetResponse: Partia
         "totalElements": n => { variablesGetResponse.totalElements = n.getNumberValue(); },
     }
 }
+export type GetSortOrderQueryParameterType = (typeof GetSortOrderQueryParameterTypeObject)[keyof typeof GetSortOrderQueryParameterTypeObject];
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
@@ -192,11 +193,17 @@ export interface VariablesRequestBuilder extends BaseRequestBuilder<VariablesReq
 export interface VariablesRequestBuilderGetQueryParameters {
     page?: number;
     size?: number;
+    sort?: string;
+    sortOrder?: GetSortOrderQueryParameterType;
 }
 /**
  * Uri template for the request builder.
  */
-export const VariablesRequestBuilderUriTemplate = "{+baseurl}/v1/data_factory/variables{?page*,size*}";
+export const VariablesRequestBuilderUriTemplate = "{+baseurl}/v1/data_factory/variables{?page*,size*,sort*,sortOrder*}";
+export const GetSortOrderQueryParameterTypeObject = {
+    DESC: "DESC",
+    ASC: "ASC",
+} as const;
 export const VariablesGetResponse_objectObject = {
     List: "list",
 } as const;

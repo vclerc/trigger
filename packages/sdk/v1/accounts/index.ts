@@ -73,6 +73,8 @@ export interface AccountsRequestBuilder extends BaseRequestBuilder<AccountsReque
 export interface AccountsRequestBuilderGetQueryParameters {
     page?: number;
     size?: number;
+    sort?: string;
+    sortOrder?: GetSortOrderQueryParameterType;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -114,6 +116,7 @@ export function deserializeIntoAccountsGetResponse(accountsGetResponse: Partial<
         "totalElements": n => { accountsGetResponse.totalElements = n.getNumberValue(); },
     }
 }
+export type GetSortOrderQueryParameterType = (typeof GetSortOrderQueryParameterTypeObject)[keyof typeof GetSortOrderQueryParameterTypeObject];
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
@@ -141,7 +144,7 @@ export function serializeAccountsGetResponse(writer: SerializationWriter, accoun
 /**
  * Uri template for the request builder.
  */
-export const AccountsRequestBuilderUriTemplate = "{+baseurl}/v1/accounts{?page*,size*}";
+export const AccountsRequestBuilderUriTemplate = "{+baseurl}/v1/accounts{?page*,size*,sort*,sortOrder*}";
 export const AccountsGetResponse_objectObject = {
     List: "list",
 } as const;
@@ -171,5 +174,9 @@ export const AccountsRequestBuilderRequestsMetadata: RequestsMetadata = {
         responseBodyFactory:  createAccountsGetResponseFromDiscriminatorValue,
     },
 };
+export const GetSortOrderQueryParameterTypeObject = {
+    DESC: "DESC",
+    ASC: "ASC",
+} as const;
 /* tslint:enable */
 /* eslint-enable */

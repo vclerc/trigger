@@ -4,6 +4,8 @@
 // @ts-ignore
 import { createLevelDtoFromDiscriminatorValue, serializeLevelDto, type LevelDto } from '../../models/index.js';
 // @ts-ignore
+import { FindRequestBuilderRequestsMetadata, type FindRequestBuilder } from './find/index.js';
+// @ts-ignore
 import { LevelsItemRequestBuilderRequestsMetadata, type LevelsItemRequestBuilder } from './item/index.js';
 // @ts-ignore
 import { type AdditionalDataHolder, type ApiError, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
@@ -48,6 +50,7 @@ export function deserializeIntoLevelsGetResponse(levelsGetResponse: Partial<Leve
         "totalElements": n => { levelsGetResponse.totalElements = n.getNumberValue(); },
     }
 }
+export type GetSortOrderQueryParameterType = (typeof GetSortOrderQueryParameterTypeObject)[keyof typeof GetSortOrderQueryParameterTypeObject];
 export interface Levels400Error extends AdditionalDataHolder, ApiError, Parsable {
     /**
      * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
@@ -82,6 +85,10 @@ export type LevelsGetResponse_object = (typeof LevelsGetResponse_objectObject)[k
  */
 export interface LevelsRequestBuilder extends BaseRequestBuilder<LevelsRequestBuilder> {
     /**
+     * The find property
+     */
+    get find(): FindRequestBuilder;
+    /**
      * Gets an item from the ApiSdk.v1.levels.item collection
      * @param id Unique identifier of the item
      * @returns {LevelsItemRequestBuilder}
@@ -107,6 +114,9 @@ export interface LevelsRequestBuilder extends BaseRequestBuilder<LevelsRequestBu
 export interface LevelsRequestBuilderGetQueryParameters {
     page?: number;
     size?: number;
+    sort?: string;
+    sortOrder?: GetSortOrderQueryParameterType;
+    tableId?: string;
 }
 /**
  * Serializes information the current object
@@ -135,7 +145,11 @@ export function serializeLevelsGetResponse(writer: SerializationWriter, levelsGe
 /**
  * Uri template for the request builder.
  */
-export const LevelsRequestBuilderUriTemplate = "{+baseurl}/v1/levels{?page*,size*}";
+export const LevelsRequestBuilderUriTemplate = "{+baseurl}/v1/levels?tableId={tableId}{&page*,size*,sort*,sortOrder*}";
+export const GetSortOrderQueryParameterTypeObject = {
+    DESC: "DESC",
+    ASC: "ASC",
+} as const;
 export const LevelsGetResponse_objectObject = {
     List: "list",
 } as const;
@@ -146,6 +160,9 @@ export const LevelsRequestBuilderNavigationMetadata: Record<Exclude<keyof Levels
     byId: {
         requestsMetadata: LevelsItemRequestBuilderRequestsMetadata,
         pathParametersMappings: ["id"],
+    },
+    find: {
+        requestsMetadata: FindRequestBuilderRequestsMetadata,
     },
 };
 /**
