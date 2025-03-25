@@ -1,13 +1,13 @@
 on:
   workflow_dispatch:
+    inputs:
+      target:
+        description: 'OpenApi specification location'
+        required: true
+        default: https://api-next.prod.product-live.com/
 
 name: kiota
 
-inputs:
-  target:
-    description: 'OpenApi specification location'
-    required: true
-    default: https://api-next.prod.product-live.com/
 
 
 jobs:
