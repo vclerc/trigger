@@ -17,5 +17,5 @@ jobs:
           MESSAGE: ${{ inputs.message }}
         with:
           script: |
-            const script = require('./.github/scripts/test.ts')
+            const script = require('./.github/scripts/test.js')
             script();
