@@ -1,4 +1,4 @@
-module.exports = async () => {
+const main = async () => {
 
     const {MESSAGE} = process.env;
     const message = `Hello ${MESSAGE}`;
@@ -6,3 +6,5 @@ module.exports = async () => {
     return message;
 
 }
+
+export default main;
